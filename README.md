@@ -12,17 +12,20 @@ Users of Autodesk Construction Cloud (ACC) or BIM360 who want to leverage the re
 
 This project provides an AWS Lambda function that:
 
-	1.	As input:  Provide a "signed CSV file URL", and a "filename" for the destination parquet file.
-	2.	Converts the CSV file to Parquet format using DuckDB.
-	3.	Uploads the Parquet file to a specified S3 bucket ( specified in the AWS Lambda configurations ).
+1. As input:  Provide a "signed CSV file URL", and a "filename" for the destination parquet file.
+2. Converts the CSV file to Parquet format using DuckDB.
+3. Uploads the Parquet file to a specified S3 bucket ( specified in the AWS Lambda configurations ).
 
-You can set up a scheduled job or trigger this Lambda function automatically whenever new data is available, via an ACC webhook.
+> You can set up a scheduled job or trigger this Lambda function automatically whenever new data is available, via an ACC webhook.
 
-#### What is Serverless?
+
+### What is Serverless?
 
 Serverless computing is a cloud computing execution model in which the cloud provider runs the server, dynamically managing the allocation of machine resources. In this model, you can build and run applications without managing infrastructure, scaling automatically based on demand. AWS Lambda is one such service that allows you to execute code without provisioning or managing servers.
 
-#### Architecture
+<hr>
+
+## Architecture
 
 Here is a high-level overview of how the solution works:
 
