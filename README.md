@@ -18,6 +18,7 @@ This project provides an AWS Lambda function that:
 
 > You can set up a scheduled job or trigger this Lambda function automatically whenever new data is available, via an ACC webhook.
 
+> See Reference documentation, to see how you can retrieve the [individual signURL for a CSV file from BIM360 Data-Connector API](https://aps.autodesk.com/en/docs/bim360/v1/tutorials/data-connector/dc-tutorial-retrieve-data-extract/#step-3-retrieve-a-file-from-a-data-extract) 
 
 ### What is Serverless?
 
