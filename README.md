@@ -34,11 +34,12 @@ Here is a high-level overview of how the solution works:
 
 
 #### Items:
-- 'Data Source': ACC or BIM360 generates CSV files.
-- 'Signed URL': The CSV file is accessed via a signed URL.
-- 'AWS Lambda': The Lambda function processes the CSV and converts it to Parquet format.
-- 'S3 Bucket': The resulting Parquet file is stored in an S3 bucket.
-- 'AWS QuickSight': QuickSight generates reports from the Parquet files.
+- `Data Source`: ACC or BIM360 generates CSV files.
+- `Signed URL`: The CSV file is accessed via a signed URL
+-  `Event`: This is a webhook event, that comes from ACC/BIM360 when a CSV file changes. The event contains a signed-URL (of the 'source' CSV ) and a filename (the 'destination' parquet file)  
+- `AWS Lambda`: The Lambda function processes the CSV and converts it to Parquet format.
+- `S3 Bucket`: The resulting Parquet file is stored in your own S3 bucket.
+- `AWS QuickSight`: QuickSight generates reports from the Parquet files.
 
 <hr>
 
@@ -52,23 +53,16 @@ Here is a high-level overview of how the solution works:
 -	AWS IAM permissions: Ensure that the Lambda function has permissions to read from the signed CSV URL and write to the S3 bucket.
 
 
-#### 1. Clone this Repository
+#### 1. Create the Lambda handler
 
-```bash
-git clone https://github.com/your-repo/bim360-quicksight-lambda.git
-cd bim360-quicksight-lambda
-```
+1. Create a new Lambda function in your favorite region.
+2. Copy/Paste the [handler.py](handler.py) code and replace the default handler 
+3. Make the lambda function publicly (URL publicly accessible).
+4. Upload your 'duckDB.zip' file into a new 'duckDB' layer (`see step 2 below`)
+5. Attach the 'duckDB' layer to this handler
+6. Setup your environment variables under the configuration section (`see step 3 below`)
 
-#### 2. Set Up Environment Variables in Lambda
-
-Go to the AWS Lambda console and configure the following environment variables:
-
--	AWS_ACCESS_KEY_ID: Your AWS Access Key ID.
--	AWS_SECRET_ACCESS_KEY: Your AWS Secret Access Key.
--	AWS_REGION: Your preferred AWS region (e.g., us-east-1).
--	BUCKET_FOLDER: The S3 bucket folder where the Parquet files will be stored (e.g., s3://your-bucket-name/folder/).
-
-#### 3. Deploy the Lambda Function
+#### 2. Create a "DuckDB" Lambda Layer 
 
 You need to create a Lambda Layer that includes DuckDB as a dependency.
 
@@ -84,11 +78,16 @@ pip install --target ./python duckdb
 zip -r9 duckdb_layer.zip python
 ```
 
-> B. Create a Lambda Layer in AWS and deploy:
+#### 3. Set Up Environment Variables in Lambda
 
--	Upload the duckdb_layer.zip file to your AWS Lambda Layers section.
--	Attach the layer to your Lambda function.
-- Deploy the Lambda code from this repository into your function through the AWS console
+Go to the AWS Lambda console and configure the following environment variables:
+
+-	AWS_ACCESS_KEY_ID: Your AWS Access Key ID.
+-	AWS_SECRET_ACCESS_KEY: Your AWS Secret Access Key.
+-	AWS_REGION: Your preferred AWS region (e.g., us-east-1).
+-	BUCKET_FOLDER: The S3 bucket folder where the Parquet files will be stored (e.g., s3://your-bucket-name/folder/).
+
+#### 4. Test it
 
 > C. Example Usage
 
