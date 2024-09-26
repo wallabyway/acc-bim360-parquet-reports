@@ -2,6 +2,11 @@ import duckdb
 import os
 
 def lambda_handler(event, context):
+    """
+    PURPOSE:
+    Get CSV URL, convert it to .Parquet format, save .Parquet file to specific S3 Bucket
+    """
+
     # Extract source URL and destination filename from event
     source_url = event['source_url']  # CSV file signed URL
     destination_filename = event['destination_filename']  # Destination filename (e.g., 'output.parquet')
