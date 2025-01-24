@@ -12,7 +12,9 @@ Users of Autodesk Construction Cloud (ACC) or BIM360 who want to leverage the re
 
 ### Solution
 
-This project provides an AWS Lambda function that:
+[See handler-converter.py](handler-converter.py)
+
+This project provides an AWS Lambda function, handler-converter.py, that:
 
 1. As input:  Provide a "signed CSV file URL", and a "filename" for the destination parquet file.
 2. Converts the CSV file to Parquet format using DuckDB.
@@ -59,7 +61,7 @@ Here is a high-level overview of how the solution works:
 #### 1. Create the Lambda handler
 
 1. Create a new Lambda function in your favorite region.
-2. Copy/Paste the [handler.py](handler.py) code and replace the default handler 
+2. Copy/Paste the [handler-converter.py](handler-converter.py) code and replace the default handler 
 3. Make the lambda function publicly (URL publicly accessible).
 4. Upload your 'duckDB.zip' file into a new 'duckDB' layer (`see step 2 below`)
 5. Attach the 'duckDB' layer to this handler
@@ -132,8 +134,8 @@ aws lambda invoke \
 - jobId: The job ID for the data export job.
 - success: A boolean indicating if the job was successful or not.
     
-##### `handler-callback.py'
-See above
+##### `handler-converter.py'
+See 'Solution' section above and refer to script: [handler-converter.py](handler-converter.py)
 
 
 
